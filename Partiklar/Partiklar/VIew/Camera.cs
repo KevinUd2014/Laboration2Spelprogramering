@@ -28,5 +28,6 @@ namespace Partiklar.VIew
 
             return new Vector2(visualX, visualY);
         }
+
     }
 }
