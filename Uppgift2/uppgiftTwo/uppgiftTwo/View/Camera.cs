@@ -1,27 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Partiklar.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using uppgiftTwo.Model;
 
-namespace Partiklar.VIew
+namespace uppgiftTwo
 {
     class Camera
     {
-        //private float displaceX = 0;
-        //private float displaceY = 0;
         public float scaleX;
         public float scaleY;
 
+        public const int SIZE_x = 10;
+        public const int SIZE_y = 10;
+
         public Camera(Viewport graphics)
         {
-            scaleX = graphics.Width / Level.SIZE_x;
-            scaleY = graphics.Height / Level.SIZE_y;
+            scaleX = graphics.Width / SIZE_x;
+            scaleY = graphics.Height / SIZE_y;
         }
 
-        public Vector2 scaleParticles(float x, float y)//ger en visuell rörelse
+        public Vector2 scaleParticles(float x, float y)//ger en visuell rörelse!
         {
             float visualX = scaleX * x;
             float visualY = scaleY * y;
