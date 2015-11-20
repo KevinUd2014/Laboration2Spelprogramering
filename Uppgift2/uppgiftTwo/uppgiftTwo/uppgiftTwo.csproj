@@ -38,14 +38,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Model\Level.cs" />
-    <Compile Include="View\Camera.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\DrawView.cs" />
-    <Compile Include="View\Smoke.cs" />
-    <Compile Include="View\SmokeManager.cs" />
+    <Compile Include="View\Particles.cs" />
+    <Compile Include="View\ParticleSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

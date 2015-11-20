@@ -12,9 +12,10 @@ namespace uppgiftTwo
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        DrawView view;
+        Texture2D smoke;
+        //DrawView view;
         float time;
-        SmokeManager smokeManager;
+        ParticleSystem particleSystem;
 
         public Game1()
         {
@@ -46,12 +47,12 @@ namespace uppgiftTwo
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            Camera camera = new Camera(GraphicsDevice.Viewport);
-            view = new DrawView(spriteBatch, Content, camera);
-            smokeManager = new SmokeManager();
+            smoke = Content.Load<Texture2D>("particlesmokee");
+            //Camera camera = new Camera(GraphicsDevice.Viewport);
+            particleSystem = new ParticleSystem(smoke);
+            //smokeManager = new SmokeManager();
             //camera.setSizeOfField(graphics.GraphicsDevice.Viewport);
-            //smoke = Content.Load<Texture2D>("particlesmoke.tga");
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -75,13 +76,8 @@ namespace uppgiftTwo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if(time >= (float)smokeManager.lifetime / (float)smokeManager.maxParticles)
-            {
-                view.timerForNewParticles();
-            }
-
+            
+            particleSystem.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -95,8 +91,9 @@ namespace uppgiftTwo
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-
-            view.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            spriteBatch.Begin();
+            particleSystem.Draw(spriteBatch);
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
