@@ -9,11 +9,13 @@ namespace ExplosionEffect.View
 {
     class Camera
     {
-        
+        //private int border;
+        //private float scale;
         public float scaleX;
         public float scaleY;
         private float sizeOfWindow;
-
+        float X = 0.5f;
+        float Y = 0.5f;
         Viewport graphics;
 
         Vector2 zeroCord = Vector2.Zero;
@@ -24,17 +26,10 @@ namespace ExplosionEffect.View
             setSizeOfWindow();
         }
 
-        public Vector2 convertToVisualCoords(Vector2 coords, ExplosionManager explosionManager)//vet inte om denna ska vara eller den undre ska testa båda imorgon, denna är dock inte min...
+        public Vector2 convertToVisualCoords(Vector2 coordinates, ExplosionManager explosion) //vet inte om denna ska vara eller den undre ska testa båda imorgon, denna är dock inte min...
         {
-            float visualX = coords.X * sizeOfWindow - (explosionManager.Width / 2) + zeroCord.X;
-            float visualY = coords.Y * sizeOfWindow - (explosionManager.Height / 2) + zeroCord.Y;
-            return new Vector2(visualX, visualY);
-        }
-
-        public Vector2 scaleParticles(float x, float y)//ger en visuell rörelse
-        {
-            float visualX = scaleX * x;
-            float visualY = scaleY * y;
+            float visualX = coordinates.X * sizeOfWindow - (explosion.Width / 2) + zeroCord.X;
+            float visualY = coordinates.Y * sizeOfWindow - (explosion.Height / 2) + zeroCord.Y;
 
             return new Vector2(visualX, visualY);
         }

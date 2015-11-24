@@ -1,17 +1,14 @@
-﻿using ExplosionEffect.View;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace ExplosionEffect
+namespace explosionAndSmoke
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
-        Camera camera;
-        ExplosionManager explosionManager;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -42,9 +39,6 @@ namespace ExplosionEffect
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D explosion = Content.Load<Texture2D>("explosion");
-            camera = new Camera(graphics.GraphicsDevice.Viewport);
-            explosionManager = new ExplosionManager(spriteBatch, explosion, camera);
 
             // TODO: use this.Content to load your game content here
         }
@@ -79,8 +73,7 @@ namespace ExplosionEffect
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-            explosionManager.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 

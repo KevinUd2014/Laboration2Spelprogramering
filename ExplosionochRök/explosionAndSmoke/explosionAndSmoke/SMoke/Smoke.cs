@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace uppgiftTwo.View
+namespace explosionAndSmoke.SMoke
 {
-    class Particles
+    class Smoke
     {
         public Vector2 position;
         public Vector2 velocity;
@@ -26,15 +26,15 @@ namespace uppgiftTwo.View
 
         public void Draw(SpriteBatch sb, Texture2D texture, float maxAge)
         {
-            sb.Draw(texture, 
-                position, 
-                null, 
-                null, 
-                new Vector2(texture.Width / 2f, texture.Height / 2f), 
-                rotation, 
-                Vector2.One * scale * (age / maxAge), 
-                Color.White * (1 - (age / maxAge)), 
-                SpriteEffects.None, 
+            sb.Draw(texture,
+                position,
+                null,
+                null,
+                new Vector2(texture.Width / 2f, texture.Height / 2f),
+                rotation,
+                Vector2.One * scale * (age / maxAge),
+                Color.White * (1 - (age / maxAge)),
+                SpriteEffects.None,
                 0);
         }
 
