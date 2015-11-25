@@ -11,67 +11,54 @@ namespace ExplosionAndSMoke.View
     {
         SpriteBatch spriteBatch;
         Texture2D explosion;
+        Texture2D smoke;
         Camera camera;
 
         public int Width;
         public int Height;
-        public int frame;
-        public int frameX;
-        public int frameY;
-        public int frameWidth;
-        public int frameHeight;
 
         public float timeElapsed;
         public float maxTimer = 0.5f;
-        float percentAnimated;
+        //float percentAnimated;
 
-        public int setFPS = 60;// tagen från uppgiftens sida!
+        /*public int setFPS = 60;// tagen från uppgiftens sida!
         public int posFramesX = 4;
-        public int posFramesY = 8;
+        public int posFramesY = 8;*/
 
-        Vector2 startposition = new Vector2(0.5f, 0.5f);
-        ParticleSystem ps;
-
-
-        public Explosion(SpriteBatch spritebatch, Texture2D Explosion, Camera Camera)
+        Vector2 startposition = new Vector2(0.8f, 0.5f);
+        ParticleSystem particleSystem;
+        SmokeSystem smokeSystem;
+        
+        public Explosion(SpriteBatch spritebatch, Texture2D Explosion, Camera Camera, Texture2D Smoke)
         {
             timeElapsed = 0; //denna ska vara 0 när programmet startas
 
             camera = Camera;//så jag kan använda kameran i klassen!
             spriteBatch = spritebatch;
             explosion = Explosion;
+            smoke = Smoke;
 
             Width = explosion.Width; // posFramesX; //delar explosionens bredd med positions framesen!
             Height = explosion.Height; // posFramesY;
-            ps = new ParticleSystem(startposition);
 
+            particleSystem = new ParticleSystem(startposition);
+            smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
         }
 
+        public void Update(float totalseconds)
+        {
+            smokeSystem.Update(totalseconds);
+        }
         public void Draw(float totalSeconds)
         {
             timeElapsed += totalSeconds;
 
-           ps.Update(totalSeconds);
-           ps.Draw(spriteBatch, camera, explosion);
+            particleSystem.Update(totalSeconds);
+            particleSystem.Draw(spriteBatch, camera, explosion);
 
-          /*  if (timeElapsed >= maxTimer)
-            {
-                timeElapsed = 0;
-            }
+           // smokeSystem.Update(totalSeconds);//får inte dessa att funka
+            smokeSystem.Draw(spriteBatch);
 
-            percentAnimated = timeElapsed / maxTimer;
-            frame = (int)(percentAnimated * setFPS);
-            frameX = frame % posFramesX;//fick dessa från kurssidan!
-            frameY = frame / posFramesY;
-
-            frameWidth = explosion.Width / posFramesX;
-            frameHeight = explosion.Height / posFramesY;
-
-            Rectangle rect = new Rectangle(frameWidth * frameX, frameHeight * frameY, frameWidth, frameHeight);// denna sätter storleken på hela bilden!
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(explosion, camera.convertToVisualCoords(new Vector2(0.5f, 0.5f), this), rect, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.End();*/
         }
     }
 }

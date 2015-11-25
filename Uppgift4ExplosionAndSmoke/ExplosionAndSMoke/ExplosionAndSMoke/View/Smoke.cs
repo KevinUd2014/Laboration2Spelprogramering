@@ -16,16 +16,18 @@ namespace ExplosionAndSMoke.View
         public float age;
         public float scale;
 
-        public virtual void Update(GameTime gameTime)
+        public void Update(float gameTime)
         {
             velocity += new Vector2(0, -0.01f);
             position += velocity;
             rotation += rotationSpeed;
-            age += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            age += gameTime;//(float)//.ElapsedGameTime.TotalMilliseconds
         }
+
 
         public void Draw(SpriteBatch sb, Texture2D texture, float maxAge)
         {
+            sb.Begin();
             sb.Draw(texture,
                 position,
                 null,
@@ -36,6 +38,7 @@ namespace ExplosionAndSMoke.View
                 Color.White * (1 - (age / maxAge)),
                 SpriteEffects.None,
                 0);
+            sb.End();
         }
 
         public void Reset(Vector2 p, Vector2 v, float r, float rs, float s)

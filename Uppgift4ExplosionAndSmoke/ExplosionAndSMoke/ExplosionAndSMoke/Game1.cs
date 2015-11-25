@@ -51,12 +51,13 @@ namespace ExplosionAndSMoke
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
-            Texture2D explosion = Content.Load<Texture2D>("explosion");
+            Texture2D smokee = Content.Load<Texture2D>("particlesmokee");
             Texture2D spark = Content.Load<Texture2D>("spark");
-            explosionManager = new Explosion(spriteBatch, spark, camera);
+            explosionManager = new Explosion(spriteBatch, spark, camera, smokee);
+           // explosionManager = new Explosion(spriteBatch, smokee, camera);
 
 
-            
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,7 +81,7 @@ namespace ExplosionAndSMoke
                 Exit();
 
             // TODO: Add your update logic here
-
+            explosionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Update(gameTime);
         }
 
@@ -90,7 +91,7 @@ namespace ExplosionAndSMoke
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             explosionManager.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
             // TODO: Add your drawing code here
 

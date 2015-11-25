@@ -13,7 +13,7 @@ namespace ExplosionAndSMoke.View
         private Vector2 systemStartPosition;
         private Vector2 position;
         private Vector2 velocity;
-        private Vector2 acceleration = new Vector2(0f, 10f);
+        private Vector2 acceleration = new Vector2(0f, 7f);
         Vector2 randomDirection;
 
         public Particle(int seed, Vector2 systemStartPosition)
@@ -28,12 +28,12 @@ namespace ExplosionAndSMoke.View
             velocity = randomDirection;
 
         }
-        internal void Update(float elapsedTimeInSeconds)//updaterar varje frame med en position
+        public void Update(float elapsedTimeInSeconds)//updaterar varje frame med en position
         {
             position = position + velocity * elapsedTimeInSeconds;
             velocity = velocity + acceleration * elapsedTimeInSeconds;
         }
-        internal void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)//ritar ut texturen med farten och en färg!
+        public void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)//ritar ut texturen med farten och en färg!
         {
             //spriteBatch.Draw(texture, camera.scaleParticles(position.X, position.Y), Color.White);
             spriteBatch.Begin();
