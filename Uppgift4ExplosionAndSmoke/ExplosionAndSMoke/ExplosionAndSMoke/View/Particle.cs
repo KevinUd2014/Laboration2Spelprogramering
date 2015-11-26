@@ -13,15 +13,15 @@ namespace ExplosionAndSMoke.View
         private Vector2 systemStartPosition;
         private Vector2 position;
         private Vector2 velocity;
-        private Vector2 acceleration = new Vector2(0f, 7f);
+        private Vector2 acceleration = new Vector2(0f, 3f);
         Vector2 randomDirection;
 
         public Particle(int seed, Vector2 systemStartPosition)
         {
             Random rand = new Random(seed);//slumpar ut alla partiklar
-            randomDirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.5f);
+            randomDirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.10f);// denna sätter snabheten på partiklarna!
             randomDirection.Normalize();
-            randomDirection = randomDirection * ((float)rand.NextDouble() * 2f);
+            randomDirection = randomDirection * ((float)rand.NextDouble() * 1.5f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
             this.seed = seed;
             this.systemStartPosition = systemStartPosition;
             position = new Vector2(systemStartPosition.X, systemStartPosition.Y);//sätter start positionen

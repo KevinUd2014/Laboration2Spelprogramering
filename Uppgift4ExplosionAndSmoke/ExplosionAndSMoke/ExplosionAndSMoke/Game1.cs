@@ -14,21 +14,17 @@ namespace ExplosionAndSMoke
 
         Explosion explosionManager;
 
-        Smoke smoke;
-        SmokeSystem smokeSystem;
-
-        Particle particle;
-        ParticleSystem particleSystem;
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        float timeElapsed;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 640;
+            graphics.PreferredBackBufferHeight = 640;
             Content.RootDirectory = "Content";
         }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -53,11 +49,8 @@ namespace ExplosionAndSMoke
             camera = new Camera(graphics.GraphicsDevice.Viewport);
             Texture2D smokee = Content.Load<Texture2D>("particlesmokee");
             Texture2D spark = Content.Load<Texture2D>("spark");
-            explosionManager = new Explosion(spriteBatch, spark, camera, smokee);
-           // explosionManager = new Explosion(spriteBatch, smokee, camera);
-
-
-
+            Texture2D bangExplosion = Content.Load<Texture2D>("explosion");
+            explosionManager = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion);
             // TODO: use this.Content to load your game content here
         }
 
@@ -77,11 +70,26 @@ namespace ExplosionAndSMoke
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                explosionManager.Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
+                timeElapsed = 0;
+            }
+            else if (timeElapsed > 4)
+            {
+                explosionManager.Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
+                timeElapsed = 0;
+            }
             // TODO: Add your update logic here
             explosionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            
+            
             base.Update(gameTime);
         }
 
@@ -92,6 +100,7 @@ namespace ExplosionAndSMoke
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
             explosionManager.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
             // TODO: Add your drawing code here
 

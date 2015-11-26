@@ -19,6 +19,8 @@ namespace ExplosionAndSMoke.View
         private float elapsedTime;
         private Texture2D texture;
         private Random r;
+        private Vector2 startPosition;
+
         Camera camera;
         Vector2 startPos;
 
@@ -28,14 +30,11 @@ namespace ExplosionAndSMoke.View
             smoke = new Smoke[maxParticleCount];//lägger in alla i en array med partiklar
             elapsedTime = 0;//den gångna tiden
             offset = 0;
-            //firstInLine = 0;
             maxLife = 7000;
             texture = Texture;
             r = new Random();
             startPos = new Vector2 (startPosition.X, startPosition.Y);
             camera = Camera;
-
-
         }
 
         public void Update(float gameTime)
@@ -54,7 +53,6 @@ namespace ExplosionAndSMoke.View
                     elapsedTime = 0;// och startar om tiden för dessa!
                 }
             }
-
             for (int i = 0; i < offset; i++)
             {
                 smoke[i].Update(gameTime);
@@ -62,7 +60,6 @@ namespace ExplosionAndSMoke.View
                 if (smoke[i].age > maxLife)
                     resetParticle(smoke[i], camera, startPos);
             }
-
         }
 
         public void Draw(SpriteBatch sb)
@@ -72,14 +69,11 @@ namespace ExplosionAndSMoke.View
                 smoke[i].Draw(sb, texture, maxLife);
             }
         }
-
-        private void resetParticle(Smoke particle, Camera camera, Vector2 startPosition)// denna kommer reseta allt
+        private void resetParticle(Smoke particle, Camera camera, Vector2 StartPosition)// denna kommer reseta allt
         {
-            //Camera camera = new Camera();
-            //Vector2 position = new Vector2(500, 500);//börjar på positionen
             float speed = 0.3f;//farten på partiklarna
             Vector2 velocity = new Vector2((float)r.NextDouble() * 2f - 1f, (float)r.NextDouble() * 2f - 1f);
-
+            startPosition = StartPosition;
             velocity.Normalize();
             velocity = velocity * speed;
 

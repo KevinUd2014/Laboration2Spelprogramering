@@ -24,7 +24,6 @@ namespace ExplosionAndSMoke.View
             age += gameTime;//(float)//.ElapsedGameTime.TotalMilliseconds
         }
 
-
         public void Draw(SpriteBatch sb, Texture2D texture, float maxAge)
         {
             sb.Begin();
